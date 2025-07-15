@@ -1,4 +1,6 @@
+import ERROR_MESSAGES from '../constants/error_messages.js';
 import { RecipeModel } from '../models/recipe_model.js';``
+import CustomError from '../utils/custom_error.js';
 export const recipeService = {
     async getAllRecipes() {
         return RecipeModel.getAllRecipes()
@@ -6,7 +8,7 @@ export const recipeService = {
     async getRecipeById(id) {
         const recipe = await RecipeModel.getRecipeById(id)
         if (!recipe) {
-            throw new Error(`Recipe with ID ${id} not found`)
+            throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
         }  
         return recipe
     },
@@ -24,7 +26,7 @@ export const recipeService = {
         console.log(sanitizedRecipeData)
         const createdRecipe = await RecipeModel.createRecipe(sanitizedRecipeData)
         if (!createdRecipe) {
-            throw new Error('Failed to create recipe')
+            throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
         }
         return createdRecipe        
     },

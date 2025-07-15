@@ -6,13 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --env-file=.env --watch src/index.js",
-    "pgversion" : "node --env-file=.env src/config/db.js"
+    "pgversion": "node --env-file=.env src/config/db.js"
   },
   "author": "Frankie",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "zod": "^4.0.5"
   }
 }

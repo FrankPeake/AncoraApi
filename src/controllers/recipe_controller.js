@@ -1,13 +1,13 @@
 export const RecipeController = {
-    async getAllRecipes(req, res) {
+    async getAllRecipes(req, res, next) {
         try {
             const recipes = await recipeService.getAllRecipes()
             res.status(200).json(recipes)
         } catch (error) {
-            res.status(500).json({ error: 'Failed to fetch recipes' })
+            next(error) 
         }
     },
-    async getRecipeById(req, res) {
+    async getRecipeById(req, res, next) {
         const { id } = req.params
         try {
             const recipe = await recipeService.getRecipeById(id)
@@ -16,35 +16,35 @@ export const RecipeController = {
             }
             res.status(200).json(recipe)
         } catch (error) {
-            res.status(500).json({ error: 'Failed to fetch recipe' })
+            next(error) 
         }
     },
-    async createRecipe(req, res) {
+    async createRecipe(req, res, next) {
         const recipeData = req.body
         try {
             const newRecipe = await recipeService.createRecipe(recipeData)
             res.status(201).json(newRecipe)
         } catch (error) {
-            res.status(500).send({ error: 'Failed to create recipe' })
+            next(error) 
         }
     },
-    async updateRecipe(req, res) {
+    async updateRecipe(req, res, next) {
         const { id } = req.params
         const recipeData = req.body
         try {
             const updatedRecipe = await recipeService.updateRecipe(id, recipeData)
             res.status(200).json(updatedRecipe)
         } catch (error) {
-            res.status(500).send({ error: 'Failed to update recipe' })
+            next(error) 
         }
     },
-    async deleteRecipe(req, res) {
+    async deleteRecipe(req, res, next) {
         const { id } = req.params
         try {
             const recipe = await recipeService.deleteRecipe(id)
             res.status(204).send(recipe) // No content
         } catch (error) {
-            res.status(500).send({ error: 'Failed to delete recipe' })
+            next(error) 
         }
     }
 }
