@@ -16,12 +16,10 @@ export const recipeService = {
         const sanitizedRecipeData = {
             ...recipeData,
             title: recipeData.title.trim(),
-            servings: recipeData.servings.trim(),
-            prep_time: recipeData.prep_time.trim(),
-            cook_time: recipeData.cook_time.trim(),
+            servings: recipeData.servings,
+            prep_time: recipeData.prep_time,
+            cook_time: recipeData.cook_time,
             description: recipeData.description.trim(),
-            ingredients: recipeData.ingredients,
-            instructions: recipeData.instructions,
         }
         console.log(sanitizedRecipeData)
         const createdRecipe = await RecipeModel.createRecipe(sanitizedRecipeData)
@@ -34,12 +32,10 @@ export const recipeService = {
         const sanitizedRecipeData = {
             ...recipeData,
             title: recipeData.title.trim(),
-            servings: recipeData.servings.trim(),
-            prep_time: recipeData.prep_time.trim(),
-            cook_time: recipeData.cook_time.trim(),
+            servings: recipeData.servings,
+            prep_time: recipeData.prep_time,
+            cook_time: recipeData.cook_time,
             description: recipeData.description.trim(),
-            ingredients: recipeData.ingredients,
-            instructions: recipeData.instructions,
         }
         return await RecipeModel.updateRecipe(id, sanitizedRecipeData);
     },

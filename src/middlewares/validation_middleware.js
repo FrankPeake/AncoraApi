@@ -7,6 +7,7 @@ export function validateData(schema) {
             schema.parse(req.body)
             next()
         } catch (error) {
+            console.error('Validation error:', error);
             if (error instanceof ZodError) {
                 const errorMessages = error.issues.map((issue) => ({
                     message: `${issue.path.join('.')} is ${issue.message}`,
