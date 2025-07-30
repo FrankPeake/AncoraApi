@@ -12,6 +12,22 @@ export const recipeService = {
         }  
         return recipe
     },
+    async getIngredients() {
+        const ingredients = await RecipeModel.getIngredients()
+        if (!ingredients) {
+            throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
+        }
+        const ingredientArray = ingredients.map(ingredient => ingredient.name)
+        return ingredientArray
+    },
+    async getUOM() {
+        const uom = await RecipeModel.getUOM()
+        if (!uom) {
+            throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
+        }
+        const uomArray = uom.map(unit => unit.name)
+        return uomArray
+    },
     async createRecipe(recipeData) {    
         const sanitizedRecipeData = {
             ...recipeData,

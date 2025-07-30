@@ -19,6 +19,22 @@ export const RecipeController = {
             next(error) 
         }
     },
+    async getIngredients(req, res, next) {
+        try {
+            const ingredients = await recipeService.getIngredients()
+            res.status(200).json(ingredients)
+        } catch (error) {
+            next(error) 
+        }   
+    },
+    async getUOM(req, res, next) {  
+        try {
+            const uom = await recipeService.getUOM()
+            res.status(200).json(uom)
+        } catch (error) {
+            next(error) 
+        }
+    },
     async createRecipe(req, res, next) {
         const recipeData = req.body
         try {

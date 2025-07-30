@@ -10,4 +10,8 @@ router.post('/', validateData(createRecipeSchema), RecipeController.createRecipe
 router.put('/:id', RecipeController.updateRecipe)
 router.delete('/:id', RecipeController.deleteRecipe)
 
+//pull possible ingredients and uom from the database
+router.get('/ingredients/', RecipeController.getIngredients)
+router.get('/uom/', RecipeController.getUOM)
+
 export default router

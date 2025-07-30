@@ -62,6 +62,16 @@ export const RecipeModel = {
         const response = await db.query(query, [id])
         return response.rows[0] || null
     },
+    async getIngredients() {
+        const query = `SELECT id, name, category FROM ingredients;`
+        const response = await db.query(query)
+        return response.rows
+    },
+    async getUOM() {
+        const query = `SELECT id, name FROM UoMs;`
+        const response = await db.query(query)
+        return response.rows
+    },
     async createRecipe(recipeData) {
         try {
             const { title, servings, prep_time, cook_time, description, user_id, ingredients, instructions } = recipeData
