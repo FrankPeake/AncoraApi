@@ -1,3 +1,4 @@
+import { id } from 'zod/locales';
 import ERROR_MESSAGES from '../constants/error_messages.js';
 import { RecipeModel } from '../models/recipe_model.js';``
 import CustomError from '../utils/custom_error.js';
@@ -17,16 +18,14 @@ export const recipeService = {
         if (!ingredients) {
             throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
         }
-        const ingredientArray = ingredients.map(ingredient => ingredient.name)
-        return ingredientArray
+        return ingredients
     },
     async getUOM() {
         const uom = await RecipeModel.getUOM()
         if (!uom) {
             throw new CustomError(ERROR_MESSAGES.ITEM_NOT_FOUND, 404)
         }
-        const uomArray = uom.map(unit => unit.name)
-        return uomArray
+        return uom
     },
     async createRecipe(recipeData) {    
         const sanitizedRecipeData = {

@@ -32,11 +32,13 @@ export const RecipeModel = {
             (
                 SELECT COALESCE(json_agg(
                     json_build_object(
+                        'ingredient_id', ri.ingredient_id,
+                        'uom_id', ri.uom_id,
                         'name', i.name,
                         'category', i.category,
                         'quantity', ri.quantity,
                         'unit', u.name,
-                        'notes', ri.notes
+                        'id', ri.id
                     )
                 ), '[]'::json) -- Return an empty array '[]' if no ingredients exist
                 FROM recipe_ingredients ri
@@ -63,7 +65,7 @@ export const RecipeModel = {
         return response.rows[0] || null
     },
     async getIngredients() {
-        const query = `SELECT id, name, category FROM ingredients;`
+        const query = `SELECT id, name FROM ingredients;`
         const response = await db.query(query)
         return response.rows
     },
