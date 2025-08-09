@@ -8,7 +8,7 @@
             r.id,
             r.username,
             r.email,
-            r.google_id,
+            r.google_id
         FROM
             users r
         WHERE
@@ -18,7 +18,7 @@
     },
     async createUser(userData) {
         try {
-            const { title, servings, prep_time, cook_time, description, user_id, ingredients, instructions } = userData
+            const { username, email, google_id } = userData
             console.log('Creating user with data:', userData)
             const userInsertQuery = `
                 INSERT INTO users (username, email, google_Id)
@@ -26,7 +26,7 @@
             `
             console.log('Executing user insert query:', userInsertQuery)
             const userResult = await db.query( userInsertQuery,
-                [title, servings, prep_time, cook_time, description || null, user_id]
+                [username, email, google_id || null]
             )
             console.log(userResult)
             const userId = userResult.rows[0].id // Get the ID of the newly inserted user

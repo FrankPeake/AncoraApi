@@ -1,7 +1,8 @@
 export const RecipeController = {
     async getAllRecipes(req, res, next) {
+        const { id } = req.params
         try {
-            const recipes = await recipeService.getAllRecipes()
+            const recipes = await recipeService.getAllRecipes(id)
             res.status(200).json(recipes)
         } catch (error) {
             next(error) 

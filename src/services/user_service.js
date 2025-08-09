@@ -2,18 +2,23 @@ import { id } from 'zod/locales';
 import ERROR_MESSAGES from '../constants/error_messages.js';
 import { userModel } from '../models/user_model.js';``
 import CustomError from '../utils/custom_error.js';
+import { OAuth2Client } from 'google-auth-library';
 // const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+const client = new OAuth2Client();
+
 export const userService = {
-    async getUserById(google_id) {
-        console.log('Fetching user with Google ID:', google_id);
-        const response = await fetch(
-        `https://oauth2.googleapis.com/tokeninfo?id_token=${google_id}`
-        );
-        console.log('Response from Google API:', response.data);
-        const {sub, email, name, given_name, family_name, picture} = response.data;
-        if (response.status == 200) {
-            const user = await userModel.getuserById(google_id)
+    async getUserById(id) {
+        const ticket = await client.verifyIdToken({
+            idToken: id,
+            audience: process.env.GOOGLE_CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+        });
+        const payload = ticket.getPayload();
+        const google_id = payload['sub'];
+        console.log('Response from Google API:', payload);
+        const {sub, email, name, given_name, family_name, picture} =payload;
+        if (payload) {
+            const user = await userModel.getUserById(google_id)
             if (!user) {
                 const newUser = await userModel.createUser({
                     google_id: sub,
