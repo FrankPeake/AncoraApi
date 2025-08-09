@@ -3,8 +3,8 @@ import ERROR_MESSAGES from '../constants/error_messages.js';
 import { RecipeModel } from '../models/recipe_model.js';``
 import CustomError from '../utils/custom_error.js';
 export const recipeService = {
-    async getAllRecipes() {
-        return RecipeModel.getAllRecipes()
+    async getAllRecipes(id) {
+        return RecipeModel.getAllRecipes(id)
     },
     async getRecipeById(id) {
         const recipe = await RecipeModel.getRecipeById(id)

@@ -1,7 +1,7 @@
 import db from '../config/db.js';
 
 export const RecipeModel = {
-    async getAllRecipes() {
+    async getAllRecipes(id) {
         const query = `SELECT
             r.id,
             r.title,
@@ -13,8 +13,10 @@ export const RecipeModel = {
             r.created_at,
             r.updated_at
         FROM
-            recipes r;`
-        const response = await db.query(query)
+            recipes r
+        WHERE
+            r.user_id = $1;`
+        const response = await db.query(query, [id])
         return response.rows
     },
     async getRecipeById(id) {
